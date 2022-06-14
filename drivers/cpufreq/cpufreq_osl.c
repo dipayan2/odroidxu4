@@ -140,7 +140,7 @@ __ATTR(_name, 0444, show_##_name, NULL)
 define_one_ro(sampling_rate_max);
 define_one_ro(sampling_rate_min);
 
-/* cpufreq_minmax Governor Tunables */
+/* cpufreq_osl Governor Tunables */
 #define show_one(file_name, object)					\
 static ssize_t show_##file_name						\
 (struct cpufreq_policy *unused, char *buf)				\
@@ -283,7 +283,7 @@ static struct attribute * dbs_attributes[] = {
 
 static struct attribute_group dbs_attr_group = {
 	.attrs = dbs_attributes,
-	.name = "minmax",
+	.name = "osl",
 };
 
 /************************** sysfs end ************************/
@@ -518,7 +518,7 @@ static int cpufreq_governor_dbs(struct cpufreq_policy *policy,
 	return 0;
 }
 
-#ifndef CONFIG_CPU_FREQ_DEFAULT_GOV_MINMAX
+#ifndef CONFIG_CPU_FREQ_DEFAULT_GOV_OSL
 static
 #endif
 struct cpufreq_governor cpufreq_gov_osl = {
@@ -547,7 +547,7 @@ MODULE_DESCRIPTION ("'cpufreq_osl' - A dynamic cpufreq governor which "
 		);
 MODULE_LICENSE ("GPL");
 
-#ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_MINMAX
+#ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_OSL
 fs_initcall(cpufreq_gov_dbs_init);
 #else
 module_init(cpufreq_gov_dbs_init);
